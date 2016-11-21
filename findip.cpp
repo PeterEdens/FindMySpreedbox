@@ -13,7 +13,9 @@
 #include <iostream>
 #include <ostream>
 
+#ifdef _WIN32
 #include <Shellapi.h>
+#endif
 #include "icmp_header.hpp"
 #include "ipv4_header.hpp"
 
@@ -130,7 +132,11 @@ private:
 		  
 		  std::string url = "https://";
 		  url += server_;
+#ifdef _WIN32
 		  ShellExecuteA(0, 0, url.c_str(), 0, 0 , SW_SHOW );
+#else
+		  std::cout << " a Spreedbox at " << url << "\n";
+#endif
 		  return;
 	  }
       else if (status_code != 200)
